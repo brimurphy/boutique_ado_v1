@@ -37,6 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    # The contrib.sites app and the site_id=1 setting we added
+    # # creates proper callback URLs when connecting via social media accounts
+    'allauth',  # allauth itself
+    'allauth.account',
+    # allows all basic user account stuff like logging
+    # in and out. User registration and passwords resets
+    'allauth.socialaccount',
+    # Handles logging in via social media providers like FB and Google
 ]
 
 MIDDLEWARE = [
@@ -59,13 +68,38 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
+                # allauth needs this from django
                 'django.template.context_processors.request',
+                # The request context processor above allows allauth and django
+                # itself to access the HTTP request object in our templates
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+
+SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# authentication using username or email
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True  # email is required to register for the site
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Verifying your email is mandatory
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True  # enter their email twice
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+LOGIN_URL = '/accounts/login/'  # specifying a login url
+LOGIN_REDIRECT_URL = '/'  # url to redirect back to after logging in
 
 WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 
