@@ -177,6 +177,10 @@ a.category-badge > span.badge:hover {
     overflow-y: auto;
 }
 
+.form-control {
+    margin-bottom: 0.5rem;
+}
+
 /* -------------------------------- Media Queries */
 
 /* Slightly larger container on xl screens */
