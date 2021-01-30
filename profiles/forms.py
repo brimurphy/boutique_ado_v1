@@ -37,6 +37,7 @@ class UserProfileForm(forms.ModelForm):
                 # setting all placeholders to their values in above dictionary
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             # Add a CSS class called striped-style-input
-            self.fields[field].widget.attrs['class'] = 'border-black rounded-0 profile-form-input'
+            self.fields[field].widget.attrs['class'] =\
+                'border-black rounded-0 profile-form-input'
             # Removing the form fields labels
             self.fields[field].label = False

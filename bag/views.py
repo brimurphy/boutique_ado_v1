@@ -32,20 +32,27 @@ def add_to_bag(request, item_id):
             if size in bag[item_id]['items_by_size'].keys():
                 # if so, increment the quantity for that size
                 bag[item_id]['items_by_size'][size] += quantity
-                messages.success(request, f'Update size {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
+                messages.success(
+                    request, f'Update size {size.upper()} {product.name}\
+                        quantity to {bag[item_id]["items_by_size"][size]}')
             # otherwise set it to equal quantity
             else:
                 bag[item_id]['items_by_size'][size] = quantity
-                messages.success(request, f'Added size {size.upper()} {product.name} to your bag')
+                messages.success(
+                    request, f'Added size {size.upper()} {product.name}\
+                        to your bag')
         # if not in the bag set it to equal quantity
         else:
             bag[item_id] = {'items_by_size': {size: quantity}}
-            messages.success(request, f'Added size {size.upper()} {product.name} to your bag')
+            messages.success(
+                request, f'Added size {size.upper()} {product.name}\
+                    to your bag')
     # if item has no size
     else:
         if item_id in list(bag.keys()):
             bag[item_id] += quantity
-            messages.success(request, f'Updated {product.name}, quantity to {bag[item_id]}')
+            messages.success(
+                request, f'Updated {product.name}, quantity to {bag[item_id]}')
         else:
             bag[item_id] = quantity
             messages.success(request, f'Added {product.name} to your bag')
@@ -70,7 +77,9 @@ def adjust_bag(request, item_id):
         # if more than 0 items
         if quantity > 0:
             bag[item_id]['items_by_size'][size] = quantity
-            messages.success(request, f'Update size {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
+            messages.success(
+                request, f'Update size {size.upper()} {product.name}\
+                    quantity to {bag[item_id]["items_by_size"][size]}')
         # if 0 items delete
         else:
             del bag[item_id]['items_by_size'][size]
@@ -79,13 +88,16 @@ def adjust_bag(request, item_id):
             # so no empty items by size dictionary is left hanging around
             if not bag[item_id]['items_by_size']:
                 bag.pop(item_id)
-            messages.success(request, f'Removed size {size.upper()} {product.name} from your bag')
+            messages.success(
+                request, f'Removed size {size.upper()} {product.name}\
+                from your bag')
     # if item has no size
     else:
         # if more than 0 items
         if quantity > 0:
             bag[item_id] = quantity
-            messages.success(request, f'Updated {product.name}, quantity to {bag[item_id]}')
+            messages.success(
+                request, f'Updated {product.name}, quantity to {bag[item_id]}')
         # if 0 items delete
         else:
             bag.pop(item_id)
@@ -116,7 +128,8 @@ def remove_from_bag(request, item_id):
             if not bag[item_id]['items_by_size']:
                 bag.pop(item_id)
             messages.success(
-                request, f'Removed size {size.upper()} {product.name} from your bag')
+                request, f'Removed size {size.upper()} {product.name}\
+                    from your bag')
         # if item has no size
         else:
             # pop item out of bag
